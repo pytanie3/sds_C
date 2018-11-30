@@ -86,7 +86,7 @@ int main(void)
     bdrate = 9600;  /* 9600 baud */
     float PM25ugpm3 = 0;
     unsigned char buf0;
-    unsigned char buf1[1];
+    unsigned char buf1;
     unsigned char buf2[1];
     unsigned char buf3[8];
     unsigned char packet[8];
@@ -107,20 +107,19 @@ int main(void)
     while(1)
     {
         j0 = RS232_PollComport_full(cport_nr, &buf0, 1);
-        j1 = RS232_PollComport_full(cport_nr, buf1, 1);
+        j1 = RS232_PollComport_full(cport_nr, &buf1, 1);
         printf("odebrano pakiet\n");
-        printf ("po while(1): j0_prc.ld, j1_prc.ld, buf1[0]_prc.l : %ld %ld %ld \n", j0, j1, buf1[0]); // %4.2f  float
-        if ((buf0 == 0xAA) & (buf1[0] == 0xC0))
+        if ((buf0 == 0xAA) & (buf1 == 0xC0))
         {                                       //if (buf2[0] == 0xAA)
             j2 = RS232_PollComport_full(cport_nr, buf2, 8);
-            printf ("po (buf0==(0xAA))&(buf1[0]==0xC0)");
-            printf ("prc.ld. buf0,buf1[0]= %ld; %ld; \n", buf0, buf1[0]);
-            printf ("prc.X.  buf0,buf1[0]= %X; %X;   \n", buf0, buf1[0]);
-            printf ("prc.i.  buf0,buf1[0]= %i; %i;   \n", buf0, buf1[0]);
-            printf ("prc.ld. buf2[0;1;2;3;4;]= %ld; %ld; %ld; %ld; %ld; \n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
-            printf ("prc.X.  buf2[0;1;2;3;4;]= %X; %X; %X; %X; %X;      \n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
-            printf ("prc.d.  buf2[0;1;2;3;4;]= %d; %d; %d; %d; %d;      \n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
-            printf ("prc.i.  buf2[0;1;2;3;4;]= %i; %i; %i; %i; %i;      \n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
+            printf ("po (buf0==(0xAA))&(buf1==0xC0)");
+            printf ("prc.ld. buf0,buf1= %ld; %ld; \n", buf0, buf1);
+            printf ("prc.X.  buf0,buf1= %02X; %02X;   \n", buf0, buf1);
+            printf ("prc.i.  buf0,buf1= %i; %i;   \n", buf0, buf1);
+            printf ("prc.ld. buf2[0;1;2;3;4;]= %ld; %ld; %ld; %ld; %ld;\n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
+            printf ("prc.X.  buf2[0;1;2;3;4;]= %02X; %02X; %02X; %02X; %02X;\n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
+            printf ("prc.d.  buf2[0;1;2;3;4;]= %d; %d; %d; %d; %d;\n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
+            printf ("prc.i.  buf2[0;1;2;3;4;]= %i; %i; %i; %i; %i;\n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
             state = 0;
             PM25_High_byte = buf3[1];
             PM25_Low_byte = buf3[0];
