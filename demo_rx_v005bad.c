@@ -98,7 +98,6 @@ int main(void)
     // 2 - oczekujemy na 8 pozosta³ych bajtów
     char mode[] = {'8', 'N', '1', 0};
 
-    RS232_PollComport_full(cport_nr, &buf0, 1);
     printf ("Start przed if floats: %4.2f %ld %+.0e  \n", 3.1416, k_while, 3.1416);
     if(RS232_OpenComport(cport_nr, bdrate, mode))
     {
