@@ -73,7 +73,7 @@ int main(void)
     lastbyte = 0,
     PM25_High_byte,
     PM25_Low_byte,
-    PM10ugpm3=0,
+    PM10ugpm3 = 0,
     PM10_High_byte,
     PM10_Low_byte,
     i = 0,
