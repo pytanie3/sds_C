@@ -140,7 +140,7 @@ int main(void)
                 printf("PM25ugpm3 = %4.2f  PM10ugpm3 = %4.2f\n", PM25ugpm3, PM10ugpm3);
                 time( & rawtime);
                 timeinfo = localtime ( & rawtime);
-                fprintf(out_file, "%s;\n", asctime(timeinfo));
+                fprintf(out_file, "%s;", asctime(timeinfo));
                 sprintf(out_text, "%4.2f;%4.2f\n",  PM25ugpm3, PM10ugpm3);
                 int i;
                 int s_len = strlen(out_text);
