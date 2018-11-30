@@ -139,7 +139,7 @@ int main(void)
                     /
                     10.0);
                 printf("PM25ugpm3= %4.2f\n", PM25ugpm3);
-                printf("nj %i \n",nj) ;
+                printf("nj %i\n",nj) ;
             }
         }
         if (--nj < 0)
