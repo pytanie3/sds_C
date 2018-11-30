@@ -87,7 +87,7 @@ int main(void)
     float PM25ugpm3 = 0;
     unsigned char buf0;
     unsigned char buf1;
-    unsigned char buf2[1];
+    unsigned char buf2[8];
     unsigned char buf3[8];
     unsigned char packet[8];
     unsigned char ind = 0;
