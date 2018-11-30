@@ -22,6 +22,29 @@ compile with the command: gcc demo_rx.c rs232.c -Wall -Wextra -o2 -o test_rx
 // #include "c:\\i\Python\My.python\RS-232\rs232.h"
 #include "rs232.h"
 
+  int RS232_PollComport_full(int cport, unsigned char buf, int nbytes)
+  {
+    n=1
+    while(1)
+    {
+     n = RS232_PollComport(cport_nr, buf, 4095);
+     if(n > 0)
+     {
+      buf[n] = 0;   /* always put a "null" at the end of a string! */
+      for(i=0; i < n; i++)
+      {
+        if(buf[i] < 32)  /* replace unreadable control-codes by dots */
+        {
+          buf[i] = '.';
+        }
+      }
+      printf("received %i bytes: %s\n", n, (char *)buf);
+     }
+    break;
+   }
+  return();
+ }
+
 int main()
 {
   int byte = 0, lastbyte = 0,
