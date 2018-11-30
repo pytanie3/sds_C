@@ -74,6 +74,11 @@ int RS232_PollComport_full(int cport_nr, unsigned char * buf, int nbytes)
     return already_read;
 }
 
+float calc_dust(unsigned char * dust_data)
+{
+    return (dust_data[1] * 256 + dust_data[0]) / 10.0;
+}
+
 int main(void)
 {
     int byte = 0,
