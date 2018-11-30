@@ -120,7 +120,7 @@ int main(void)
         );
     printf("Nazwa: %s\n", out_text);
     out_file = fopen(out_text, "w");
-    sprintf(out_text, "Time;PM 2.5 [ug/m^3];PM 10 [ug/m^3]\n");
+    fprintf(out_file, "Time;PM 2.5 [ug/m^3];PM 10 [ug/m^3]\n");
     while(1)
     {
         if(char_cnt > 0)
