@@ -107,7 +107,19 @@ int main(void)
     int nj = 10000;
     int char_cnt = 0;
     FILE * out_file;
-    out_file = fopen("out_c.csv", "w");
+    struct tm tm_ptr;
+
+    tm_ptr = localtime( & rawtime);
+    sprintf(out_text, "out_c_%4d.%02d%02d_%02d%02d%02d.csv",
+        tm_ptr->tm_year,
+        tm_ptr->tm_mon + 1,
+        tm_ptr->tm_mday,
+        tm_ptr->tm_hour,
+        tm_ptr->tm_min,
+        tm_ptr->tm_sec,
+        tm_ptr->tm_mday
+        );
+    out_file = fopen(out_text, "w");
     while(1)
     {
         if(char_cnt > 0)
