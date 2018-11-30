@@ -25,28 +25,47 @@ compile with the command: gcc demo_rx.c rs232.c -Wall -Wextra -o2 -o test_rx
 #define VERBOSE_CHARS 1
 #define VERBOSE_SUMMARY 1
 
-  int RS232_PollComport_full(int cport, unsigned char buf, int nbytes)
-  {
-    n=1
+int RS232_PollComport_full(int cport_nr, unsigned char * buf, int nbytes)
+{
+    int i;
+    int n;
+    int already_read = 0;
+    int bytes_to_read;
+    unsigned char * dst_pointer;
     while(1)
     {
-     n = RS232_PollComport(cport_nr, buf, 4095);
-     if(n > 0)
-     {
-      buf[n] = 0;   /* always put a "null" at the end of a string! */
-      for(i=0; i < n; i++)
-      {
-        if(buf[i] < 32)  /* replace unreadable control-codes by dots */
+        bytes_to_read = nbytes - already_read;
+        if(bytes_to_read <= 0)
         {
-          buf[i] = '.';
+            break;
         }
-      }
-      printf("received %i bytes: %s\n", n, (char *)buf);
-     }
-    break;
-   }
-  return();
- }
+        dst_pointer = buf + already_read;
+        n = RS232_PollComport(cport_nr, dst_pointer, bytes_to_read);
+        if(n > 0)
+        {
+            #if VERBOSE_CHARS
+                printf("received %i bytes: ", n);
+                for(i = 0; i < n; i++)
+                {
+                    printf("%02X", dst_pointer[i]);
+                    if(i == n - 1)
+                    {
+                        printf("\n");
+                    }
+                    else
+                    {
+                        printf(" ");
+                    }
+                }
+            #endif // VERBOSE_CHARS
+            already_read += n;
+            #if VERBOSE_SUMMARY
+                printf("Total read: %i bytes, waiting for %i more bytes\n", already_read, nbytes - already_read);
+            #endif // VERBOSE_SUMMARY
+        }
+    }
+    return already_read;
+}
 
 int main()
 {
