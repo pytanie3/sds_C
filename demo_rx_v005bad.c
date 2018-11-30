@@ -110,9 +110,9 @@ int main(void)
     {
         if(char_cnt > 0)
         {
-            buf1 = buf0; /* Copy previous byte */
+            buf0 = buf1; /* Copy previous byte */
         }
-        RS232_PollComport_full(cport_nr, &buf0, 1);
+        RS232_PollComport_full(cport_nr, &buf1, 1);
         if(char_cnt < 2)
         {
             char_cnt++;
