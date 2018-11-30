@@ -65,7 +65,10 @@ int RS232_PollComport_full(int cport_nr, unsigned char * buf, int nbytes)
             #endif // VERBOSE_SUMMARY
         }
         #if VERBOSE_EVERY
-            printf("part_size: %i\n", part_size);
+            if(part_size != 0)
+            {
+                printf("part_size: %i\n", part_size);
+            }
         #endif // VERBOSE_EVERY
     }
     return already_read;
