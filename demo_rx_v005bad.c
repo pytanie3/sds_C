@@ -28,6 +28,8 @@ compile with the command: gcc demo_rx.c rs232.c -Wall -Wextra -o2 -o test_rx
 #define VERBOSE_BYTES 0
 #define LIMITED_ITERATIONS 0
 
+#define TEXT_SIZE 256
+
 int RS232_PollComport_full(int cport_nr, unsigned char * buf, int nbytes)
 {
     int i;
@@ -92,6 +94,7 @@ int main(void)
     unsigned char buf1;
     unsigned char buf2[8];
     char mode[] = {'8', 'N', '1', 0};
+    char out_text[TEXT_SIZE];
 
     if(RS232_OpenComport(cport_nr, bdrate, mode))
     {
@@ -132,7 +135,15 @@ int main(void)
                 PM25ugpm3 = calc_dust(buf2 + 0);
                 PM10ugpm3 = calc_dust(buf2 + 2);
                 printf("PM25ugpm3 = %4.2f  PM10ugpm3 = %4.2f\n", PM25ugpm3, PM10ugpm3);
-                fprintf(out_file, "%4.2f;%4.2f\n", PM25ugpm3, PM10ugpm3);
+                sprintf(out_text, "%4.2f;%4.2f\n", PM25ugpm3, PM10ugpm3);
+                for(int i = 0; i < strlen(out_text); i++)
+                {
+                    if(out_text[i] == '.')
+                    {
+                        out_text[i] = ',';
+                    }
+                }
+                fprintf(out_file, "%s\n", out_text);
                 fflush(out_file);
             }
         }
