@@ -171,7 +171,6 @@ int main(void)
                         out_text[i] = ',';
                     }
                 }
-                fprintf(out_file, "%s\n", out_text);
                 fflush(out_file);
             }
         }
