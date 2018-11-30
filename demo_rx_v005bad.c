@@ -95,7 +95,7 @@ int main(void)
     unsigned char ind = 0;
     unsigned char state = 0;      // 0 - oczekujemy na znak 0xAA
     // 1 - oczekujemy na znak 0xC0
-    // 2 - oczekujemy na 8 pozosta³ych bajtów
+    // 2 - oczekujemy na 8 pozostalych bajtow
     char mode[] = {'8', 'N', '1', 0};
 
     printf ("Start przed if floats: %4.2f %ld %+.0e  \n", 3.1416, k_while, 3.1416);
