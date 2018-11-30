@@ -80,7 +80,6 @@ int main(void)
     lastbyte = 0,
     PM25_High_byte,
     PM25_Low_byte,
-    PM10ugpm3 = 0,
     PM10_High_byte,
     PM10_Low_byte,
     n = 0,
@@ -88,6 +87,7 @@ int main(void)
     cport_nr = 7,   /*    bylo cport_nr = 3     /dev/ttyS0 (COM1 on windows) */
     bdrate = 9600;  /* 9600 baud */
     float PM25ugpm3 = 0;
+    float PM10ugpm3;
     unsigned char buf0;
     unsigned char buf1;
     unsigned char buf2[8];
