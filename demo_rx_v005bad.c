@@ -142,7 +142,9 @@ int main(void)
                 timeinfo = localtime ( & rawtime);
                 fprintf(out_file, "%s;\n", asctime(timeinfo));
                 sprintf(out_text, "%4.2f;%4.2f\n",  PM25ugpm3, PM10ugpm3);
-                for(int i = 0; i < strlen(out_text); i++)
+                int i;
+                int s_len = strlen(out_text);
+                for(i = 0; i < s_len; i++)
                 {
                     if(out_text[i] == '.')
                     {
