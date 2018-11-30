@@ -22,9 +22,9 @@ compile with the command: gcc demo_rx.c rs232.c -Wall -Wextra -o2 -o test_rx
 // #include "c:\\i\Python\My.python\RS-232\rs232.h"
 #include "rs232.h"
 
-#define VERBOSE_CHARS 1
-#define VERBOSE_SUMMARY 1
-#define VERBOSE_EVERY 1
+#define VERBOSE_CHARS 0
+#define VERBOSE_SUMMARY 0
+#define VERBOSE_EVERY 0
 #define VERBOSE_BYTES 0
 
 int RS232_PollComport_full(int cport_nr, unsigned char * buf, int nbytes)
