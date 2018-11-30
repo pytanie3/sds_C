@@ -76,10 +76,6 @@ int main(void)
     PM10ugpm3 = 0,
     PM10_High_byte,
     PM10_Low_byte,
-    i = 0,
-    j0 = 0,
-    j1 = 0,
-    j2 = 0,
     n = 0,
     k_while = 0,
     cport_nr = 7,   /*    bylo cport_nr = 3     /dev/ttyS0 (COM1 on windows) */
@@ -95,7 +91,7 @@ int main(void)
     // 2 - oczekujemy na 8 pozosta³ych bajtów
     char mode[] = {'8', 'N', '1', 0};
 
-    j0 = RS232_PollComport_full(cport_nr, &buf0, 1);
+    RS232_PollComport_full(cport_nr, &buf0, 1);
     printf ("Start przed if floats: %4.2f %ld %+.0e  \n", 3.1416, k_while, 3.1416);
     if(RS232_OpenComport(cport_nr, bdrate, mode))
     {
@@ -110,7 +106,7 @@ int main(void)
         {
             buf1 = buf0; /* Copy previous byte */
         }
-        j0 = RS232_PollComport_full(cport_nr, &buf0, 1);
+        RS232_PollComport_full(cport_nr, &buf0, 1);
         if(char_cnt < 2)
         {
             char_cnt++;
@@ -120,7 +116,7 @@ int main(void)
             if ((buf0 == 0xAA) & (buf1 == 0xC0))
             {                                       //if (buf2[0] == 0xAA)
                 printf("odebrano pakiet\n");
-                j2 = RS232_PollComport_full(cport_nr, buf2, 8);
+                RS232_PollComport_full(cport_nr, buf2, 8);
                 printf ("po (buf0==(0xAA))&(buf1==0xC0)");
                 printf ("prc.ld. buf0,buf1= %ld; %ld; \n", buf0, buf1);
                 printf ("prc.X.  buf0,buf1= %02X; %02X;   \n", buf0, buf1);
