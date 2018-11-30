@@ -100,6 +100,8 @@ int main(void)
     }
     int nj = 10000;
     int char_cnt = 0;
+    FILE * out_file;
+    out_file = fopen("out_c.txt", "w");
     while(1)
     {
         if(char_cnt > 0)
@@ -130,6 +132,8 @@ int main(void)
                 PM25ugpm3 = calc_dust(buf2 + 0);
                 PM10ugpm3 = calc_dust(buf2 + 2);
                 printf("PM25ugpm3 = %4.2f  PM10ugpm3 = %4.2f\n", PM25ugpm3, PM10ugpm3);
+                fprintf(out_file, "%4.2f;%4.2f\n", PM25ugpm3, PM10ugpm3);
+                fflush(out_file);
             }
         }
         #if LIMITED_ITERATIONS
@@ -141,6 +145,7 @@ int main(void)
         #endif // LIMITED_ITERATIONS
     }
     RS232_CloseComport(cport_nr);
+    fclose(out_file);
     return 0;
 } //main
 
