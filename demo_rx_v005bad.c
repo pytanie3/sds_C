@@ -107,7 +107,7 @@ int main(void)
     int nj = 10000;
     int char_cnt = 0;
     FILE * out_file;
-    struct tm tm_ptr;
+    struct tm *tm_ptr;
 
     tm_ptr = localtime( & rawtime);
     sprintf(out_text, "out_c_%4d.%02d%02d_%02d%02d%02d.csv",
