@@ -28,7 +28,7 @@ compile with the command: gcc demo_rx.c rs232.c -Wall -Wextra -o2 -o test_rx
 int RS232_PollComport_full(int cport_nr, unsigned char * buf, int nbytes)
 {
     int i;
-    int n;
+    int part_size;
     int already_read = 0;
     int bytes_to_read;
     unsigned char * dst_pointer;
@@ -40,15 +40,15 @@ int RS232_PollComport_full(int cport_nr, unsigned char * buf, int nbytes)
             break;
         }
         dst_pointer = buf + already_read;
-        n = RS232_PollComport(cport_nr, dst_pointer, bytes_to_read);
-        if(n > 0)
+        part_size = RS232_PollComport(cport_nr, dst_pointer, bytes_to_read);
+        if(part_size > 0)
         {
             #if VERBOSE_CHARS
-                printf("received %i bytes: ", n);
-                for(i = 0; i < n; i++)
+                printf("received %i bytes: ", part_size);
+                for(i = 0; i < part_size; i++)
                 {
                     printf("%02X", dst_pointer[i]);
-                    if(i == n - 1)
+                    if(i == part_size - 1)
                     {
                         printf("\n");
                     }
@@ -58,7 +58,7 @@ int RS232_PollComport_full(int cport_nr, unsigned char * buf, int nbytes)
                     }
                 }
             #endif // VERBOSE_CHARS
-            already_read += n;
+            already_read += part_size;
             #if VERBOSE_SUMMARY
                 printf("Total read: %i bytes, waiting for %i more bytes\n", already_read, nbytes - already_read);
             #endif // VERBOSE_SUMMARY
