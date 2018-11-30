@@ -88,7 +88,6 @@ int main(void)
     unsigned char buf0;
     unsigned char buf1;
     unsigned char buf2[8];
-    unsigned char buf3[8];
     unsigned char packet[8];
     unsigned char ind = 0;
     unsigned char state = 0;      // 0 - oczekujemy na znak 0xAA
@@ -131,8 +130,8 @@ int main(void)
                 printf ("prc.d.  buf2[0;1;2;3;4;]= %d; %d; %d; %d; %d;\n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
                 printf ("prc.i.  buf2[0;1;2;3;4;]= %i; %i; %i; %i; %i;\n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
                 state = 0;
-                PM25_High_byte = buf3[1];
-                PM25_Low_byte = buf3[0];
+                PM25_High_byte = buf2[1];
+                PM25_Low_byte = buf2[0];
                 PM25ugpm3 = (
                     (
                         PM25_High_byte * 256 + PM25_Low_byte
