@@ -104,33 +104,44 @@ int main(void)
         return 0;
     }
     int nj = 10000;
+    int char_cnt = 0;
     while(1)
     {
+        if(char_cnt > 0)
+        {
+            buf1 = buf0; /* Copy previous byte */
+        }
         j0 = RS232_PollComport_full(cport_nr, &buf0, 1);
-        j1 = RS232_PollComport_full(cport_nr, &buf1, 1);
-        printf("odebrano pakiet\n");
-        if ((buf0 == 0xAA) & (buf1 == 0xC0))
-        {                                       //if (buf2[0] == 0xAA)
-            j2 = RS232_PollComport_full(cport_nr, buf2, 8);
-            printf ("po (buf0==(0xAA))&(buf1==0xC0)");
-            printf ("prc.ld. buf0,buf1= %ld; %ld; \n", buf0, buf1);
-            printf ("prc.X.  buf0,buf1= %02X; %02X;   \n", buf0, buf1);
-            printf ("prc.i.  buf0,buf1= %i; %i;   \n", buf0, buf1);
-            printf ("prc.ld. buf2[0;1;2;3;4;]= %ld; %ld; %ld; %ld; %ld;\n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
-            printf ("prc.X.  buf2[0;1;2;3;4;]= %02X; %02X; %02X; %02X; %02X;\n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
-            printf ("prc.d.  buf2[0;1;2;3;4;]= %d; %d; %d; %d; %d;\n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
-            printf ("prc.i.  buf2[0;1;2;3;4;]= %i; %i; %i; %i; %i;\n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
-            state = 0;
-            PM25_High_byte = buf3[1];
-            PM25_Low_byte = buf3[0];
-            PM25ugpm3 = (
-                (
-                    PM25_High_byte * 256 + PM25_Low_byte
-                )
-                /
-                10.0);
-            printf (" PM25ugpm3= %4.2f\n", PM25ugpm3);
-            printf (" nj %i \n",nj) ;
+        if(char_cnt < 2)
+        {
+            char_cnt++;
+        }
+        if(char_cnt == 2)
+        {
+            if ((buf0 == 0xAA) & (buf1 == 0xC0))
+            {                                       //if (buf2[0] == 0xAA)
+                printf("odebrano pakiet\n");
+                j2 = RS232_PollComport_full(cport_nr, buf2, 8);
+                printf ("po (buf0==(0xAA))&(buf1==0xC0)");
+                printf ("prc.ld. buf0,buf1= %ld; %ld; \n", buf0, buf1);
+                printf ("prc.X.  buf0,buf1= %02X; %02X;   \n", buf0, buf1);
+                printf ("prc.i.  buf0,buf1= %i; %i;   \n", buf0, buf1);
+                printf ("prc.ld. buf2[0;1;2;3;4;]= %ld; %ld; %ld; %ld; %ld;\n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
+                printf ("prc.X.  buf2[0;1;2;3;4;]= %02X; %02X; %02X; %02X; %02X;\n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
+                printf ("prc.d.  buf2[0;1;2;3;4;]= %d; %d; %d; %d; %d;\n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
+                printf ("prc.i.  buf2[0;1;2;3;4;]= %i; %i; %i; %i; %i;\n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
+                state = 0;
+                PM25_High_byte = buf3[1];
+                PM25_Low_byte = buf3[0];
+                PM25ugpm3 = (
+                    (
+                        PM25_High_byte * 256 + PM25_Low_byte
+                    )
+                    /
+                    10.0);
+                printf("PM25ugpm3= %4.2f\n", PM25ugpm3);
+                printf("nj %i \n",nj) ;
+            }
         }
         if (--nj < 0)
         {
