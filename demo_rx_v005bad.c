@@ -111,15 +111,15 @@ int main(void)
 
     time( & rawtime);
     tm_ptr = localtime( & rawtime);
-    sprintf(out_text, "out_c_%4d.%02d%02d_%02d%02d%02d.csv",
+    sprintf(out_text, "out_c_%4d.%02d.%02d_%02a.d%02d.%02d.csv",
         tm_ptr->tm_year,
         tm_ptr->tm_mon + 1,
         tm_ptr->tm_mday,
         tm_ptr->tm_hour,
         tm_ptr->tm_min,
-        tm_ptr->tm_sec,
-        tm_ptr->tm_mday
+        tm_ptr->tm_sec
         );
+    printf("Nazwa: %s\n", out_text);
     out_file = fopen(out_text, "w");
     sprintf(out_text, "Time;PM 2.5 [ug/m^3];PM 10 [ug/m^3]\n");
     while(1)
