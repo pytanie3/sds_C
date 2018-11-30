@@ -112,7 +112,7 @@ int main(void)
     time( & rawtime);
     tm_ptr = localtime( & rawtime);
     sprintf(out_text, "out_c_%4d.%02d.%02d_%02d.%02d.%02d.csv",
-        tm_ptr->tm_year,
+        tm_ptr->tm_year + 1900,
         tm_ptr->tm_mon + 1,
         tm_ptr->tm_mday,
         tm_ptr->tm_hour,
