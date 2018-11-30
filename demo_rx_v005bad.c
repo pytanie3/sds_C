@@ -153,7 +153,14 @@ int main(void)
                 printf("PM25ugpm3 = %4.2f  PM10ugpm3 = %4.2f\n", PM25ugpm3, PM10ugpm3);
                 time( & rawtime);
                 tm_ptr = localtime ( & rawtime);
-                fprintf(out_file, "%s;", asctime(tm_ptr));
+                fprintf(out_file, "%4d-%02d-%02d %02d:%02d:%02d;",
+                    tm_ptr->tm_year + 1900,
+                    tm_ptr->tm_mon + 1,
+                    tm_ptr->tm_mday,
+                    tm_ptr->tm_hour,
+                    tm_ptr->tm_min,
+                    tm_ptr->tm_sec
+                    );
                 sprintf(out_text, "%4.2f;%4.2f\n",  PM25ugpm3, PM10ugpm3);
                 int i;
                 int s_len = strlen(out_text);
