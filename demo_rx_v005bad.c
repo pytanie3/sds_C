@@ -97,7 +97,7 @@ int main(void)
     char mode[] = {'8', 'N', '1', 0};
     char out_text[TEXT_SIZE];
     time_t rawtime;
-    struct tm * timeinfo;
+    struct tm * tm_ptr;
 
     if(RS232_OpenComport(cport_nr, bdrate, mode))
     {
@@ -107,7 +107,6 @@ int main(void)
     int nj = 10000;
     int char_cnt = 0;
     FILE * out_file;
-    struct tm *tm_ptr;
 
     time( & rawtime);
     tm_ptr = localtime( & rawtime);
@@ -153,8 +152,8 @@ int main(void)
                 PM10ugpm3 = calc_dust(buf2 + 2);
                 printf("PM25ugpm3 = %4.2f  PM10ugpm3 = %4.2f\n", PM25ugpm3, PM10ugpm3);
                 time( & rawtime);
-                timeinfo = localtime ( & rawtime);
-                fprintf(out_file, "%s;", asctime(timeinfo));
+                tm_ptr = localtime ( & rawtime);
+                fprintf(out_file, "%s;", asctime(tm_ptr));
                 sprintf(out_text, "%4.2f;%4.2f\n",  PM25ugpm3, PM10ugpm3);
                 int i;
                 int s_len = strlen(out_text);
