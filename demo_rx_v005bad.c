@@ -84,8 +84,6 @@ float calc_dust(unsigned char * dust_data)
 int main(void)
 {
     int
-    n = 0,
-    k_while = 0,
     cport_nr = 7,   /*    bylo cport_nr = 3     /dev/ttyS0 (COM1 on windows) */
     bdrate = 9600;  /* 9600 baud */
     float PM25ugpm3;
@@ -93,11 +91,8 @@ int main(void)
     unsigned char buf0;
     unsigned char buf1;
     unsigned char buf2[8];
-    unsigned char packet[8];
-    unsigned char ind = 0;
     char mode[] = {'8', 'N', '1', 0};
 
-    printf ("Start przed if floats: %4.2f %ld %+.0e  \n", 3.1416, k_while, 3.1416);
     if(RS232_OpenComport(cport_nr, bdrate, mode))
     {
         printf("Can not open comport\n");
