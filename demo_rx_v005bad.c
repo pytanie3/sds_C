@@ -26,6 +26,7 @@ compile with the command: gcc demo_rx.c rs232.c -Wall -Wextra -o2 -o test_rx
 #define VERBOSE_SUMMARY 0
 #define VERBOSE_EVERY 0
 #define VERBOSE_BYTES 0
+#define LIMITED_ITERATIONS 0
 
 int RS232_PollComport_full(int cport_nr, unsigned char * buf, int nbytes)
 {
@@ -134,13 +135,15 @@ int main(void)
                 PM25ugpm3 = calc_dust(buf2 + 0);
                 PM10ugpm3 = calc_dust(buf2 + 2);
                 printf("PM25ugpm3 = %4.2f  PM10ugpm3 = %4.2f\n", PM25ugpm3, PM10ugpm3);
-                printf("nj %i\n",nj) ;
             }
         }
+        #if LIMITED_ITERATIONS
+        printf("nj %i\n", nj);
         if (--nj < 0)
         {
             break;
         }
+        #endif // LIMITED_ITERATIONS
     }
     RS232_CloseComport(cport_nr);
     return 0;
