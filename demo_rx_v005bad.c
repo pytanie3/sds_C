@@ -119,7 +119,7 @@ int main(void)
         if(char_cnt == 2)
         {
             if ((buf0 == 0xAA) & (buf1 == 0xC0))
-            {                                       //if (buf2[0] == 0xAA)
+            {
                 RS232_PollComport_full(cport_nr, buf2, 8);
                 if(VERBOSE_BYTES)
                 {
