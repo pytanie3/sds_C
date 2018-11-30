@@ -109,6 +109,7 @@ int main(void)
     FILE * out_file;
     struct tm *tm_ptr;
 
+    time( & rawtime);
     tm_ptr = localtime( & rawtime);
     sprintf(out_text, "out_c_%4d.%02d%02d_%02d%02d%02d.csv",
         tm_ptr->tm_year,
