@@ -100,7 +100,7 @@ int main(int argc, char * argv[])
     struct tm * tm_ptr;
     if(argc >= 2)
     {
-        cport_nr = atoi(argv[1] + 3);
+        cport_nr = atoi(argv[1] + 3) - 1;
     }
     else
     {
