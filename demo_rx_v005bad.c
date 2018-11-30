@@ -12,6 +12,7 @@ compile with the command: gcc demo_rx.c rs232.c -Wall -Wextra -o2 -o test_rx
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -95,6 +96,8 @@ int main(void)
     unsigned char buf2[8];
     char mode[] = {'8', 'N', '1', 0};
     char out_text[TEXT_SIZE];
+    time_t rawtime;
+    struct tm * timeinfo;
 
     if(RS232_OpenComport(cport_nr, bdrate, mode))
     {
@@ -135,7 +138,10 @@ int main(void)
                 PM25ugpm3 = calc_dust(buf2 + 0);
                 PM10ugpm3 = calc_dust(buf2 + 2);
                 printf("PM25ugpm3 = %4.2f  PM10ugpm3 = %4.2f\n", PM25ugpm3, PM10ugpm3);
-                sprintf(out_text, "%4.2f;%4.2f\n", PM25ugpm3, PM10ugpm3);
+                time( & rawtime);
+                timeinfo = localtime ( & rawtime);
+                fprintf(out_file, "%s;\n", asctime(timeinfo));
+                sprintf(out_text, "%4.2f;%4.2f\n",  PM25ugpm3, PM10ugpm3);
                 for(int i = 0; i < strlen(out_text); i++)
                 {
                     if(out_text[i] == '.')
