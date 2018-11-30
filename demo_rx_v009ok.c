@@ -84,7 +84,7 @@ float calc_dust(unsigned char * dust_data)
     return (dust_data[1] * 256 + dust_data[0]) / 10.0;
 }
 
-int main(void)
+int main(int argc, char * argv[])
 {
     int
     cport_nr = 7,   /*    bylo cport_nr = 3     /dev/ttyS0 (COM1 on windows) */
@@ -98,6 +98,16 @@ int main(void)
     char out_text[TEXT_SIZE];
     time_t rawtime;
     struct tm * tm_ptr;
+    if(argc >= 2)
+    {
+        cport_nr = atoi(argv[1] + 3);
+    }
+    else
+    {
+        printf("Podaj nazwe portu, np. COM8\n");
+        return 1;
+    }
+
 
     if(RS232_OpenComport(cport_nr, bdrate, mode))
     {
