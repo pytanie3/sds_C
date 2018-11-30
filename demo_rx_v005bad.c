@@ -82,26 +82,18 @@ float calc_dust(unsigned char * dust_data)
 
 int main(void)
 {
-    int byte = 0,
-    lastbyte = 0,
-    PM25_High_byte,
-    PM25_Low_byte,
-    PM10_High_byte,
-    PM10_Low_byte,
+    int
     n = 0,
     k_while = 0,
     cport_nr = 7,   /*    bylo cport_nr = 3     /dev/ttyS0 (COM1 on windows) */
     bdrate = 9600;  /* 9600 baud */
-    float PM25ugpm3 = 0;
+    float PM25ugpm3;
     float PM10ugpm3;
     unsigned char buf0;
     unsigned char buf1;
     unsigned char buf2[8];
     unsigned char packet[8];
     unsigned char ind = 0;
-    unsigned char state = 0;      // 0 - oczekujemy na znak 0xAA
-    // 1 - oczekujemy na znak 0xC0
-    // 2 - oczekujemy na 8 pozostalych bajtow
     char mode[] = {'8', 'N', '1', 0};
 
     printf ("Start przed if floats: %4.2f %ld %+.0e  \n", 3.1416, k_while, 3.1416);
@@ -139,16 +131,12 @@ int main(void)
                     printf ("prc.d.  buf2[0;1;2;3;4;]= %d; %d; %d; %d; %d;\n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
                     printf ("prc.i.  buf2[0;1;2;3;4;]= %i; %i; %i; %i; %i;\n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
                 }
-                state = 0;
                 PM25_High_byte = buf2[1];
                 PM25_Low_byte = buf2[0];
-                PM25ugpm3 = (
-                    (
-                        PM25_High_byte * 256 + PM25_Low_byte
-                    )
-                    /
-                    10.0);
+                PM25ugpm3 = calc_dust(buf2 + 0);
+                PM10ugpm3 = calc_dust(buf2 + 2);
                 printf("PM25ugpm3= %4.2f\n", PM25ugpm3);
+                printf("PM10ugpm3= %4.2f\n", PM10ugpm3);
                 printf("nj %i\n",nj) ;
             }
         }
