@@ -133,8 +133,7 @@ int main(void)
                 }
                 PM25ugpm3 = calc_dust(buf2 + 0);
                 PM10ugpm3 = calc_dust(buf2 + 2);
-                printf("PM25ugpm3= %4.2f\n", PM25ugpm3);
-                printf("PM10ugpm3= %4.2f\n", PM10ugpm3);
+                printf("PM25ugpm3 = %4.2f  PM10ugpm3 = %4.2f\n", PM25ugpm3, PM10ugpm3);
                 printf("nj %i\n",nj) ;
             }
         }
