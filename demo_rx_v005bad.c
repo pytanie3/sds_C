@@ -66,28 +66,6 @@ int main()
                                 // 2 - oczekujemy na 8 pozosta³ych bajtów 
   char mode[]={'8','N','1',0};
   
-  int RS232_PollComport_full(int cport, unsigned char buf, int nbytes)
-  {
-    n=1
-    while(1)
-    {
-     n = RS232_PollComport(cport_nr, buf, 4095);
-     if(n > 0)
-     {
-      buf[n] = 0;   /* always put a "null" at the end of a string! */
-      for(i=0; i < n; i++)
-      {
-        if(buf[i] < 32)  /* replace unreadable control-codes by dots */
-        {
-          buf[i] = '.';
-        }
-      }
-      printf("received %i bytes: %s\n", n, (char *)buf);
-     }
-    break;
-   }
-  return();
- }
   j0=RS232_PollComport_full(cport_nr, buf0, 1))
   printf ("Start przed if floats: %4.2f %ld %+.0e  \n", 3.1416, k_while, 3.1416);
   if(RS232_OpenComport(cport_nr, bdrate, mode))
