@@ -131,8 +131,6 @@ int main(void)
                     printf ("prc.d.  buf2[0;1;2;3;4;]= %d; %d; %d; %d; %d;\n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
                     printf ("prc.i.  buf2[0;1;2;3;4;]= %i; %i; %i; %i; %i;\n", buf2[0], buf2[1], buf2[2], buf2[3], buf2[4]);
                 }
-                PM25_High_byte = buf2[1];
-                PM25_Low_byte = buf2[0];
                 PM25ugpm3 = calc_dust(buf2 + 0);
                 PM10ugpm3 = calc_dust(buf2 + 2);
                 printf("PM25ugpm3= %4.2f\n", PM25ugpm3);
