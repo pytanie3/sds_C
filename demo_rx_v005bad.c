@@ -101,7 +101,7 @@ int main(void)
     int nj = 10000;
     int char_cnt = 0;
     FILE * out_file;
-    out_file = fopen("out_c.txt", "w");
+    out_file = fopen("out_c.csv", "w");
     while(1)
     {
         if(char_cnt > 0)
