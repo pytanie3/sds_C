@@ -149,6 +149,7 @@ int main(void)
             break;
         }
     }
+    RS232_CloseComport(cport_nr);
     return 0;
 } //main
 
